@@ -1,0 +1,11 @@
+{
+    "name": "zeu-server",
+    "main": "server.js",
+    "dependencies": {
+      "socket.io": "*",
+      "express": "*",
+      "forever": "*",
+      "nodemon": "*"
+    },
+    "version": "0.1.0"
+}
