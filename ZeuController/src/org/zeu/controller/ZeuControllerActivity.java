@@ -145,8 +145,6 @@ public class ZeuControllerActivity extends BaseExample {
 		AnalogOnScreenControl rotationOnScreenControl = new RotationJoystick(
 				this, net).getRotationJoystick();
 		velocityJoystick.setChildScene(rotationOnScreenControl);
-		
-		
 
 		return scene;
 	}
