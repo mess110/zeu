@@ -1,4 +1,4 @@
-package org.zeu.controller.model;
+package org.zeu.controller.model.base;
 
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;

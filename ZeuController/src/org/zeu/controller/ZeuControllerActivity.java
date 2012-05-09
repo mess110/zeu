@@ -16,10 +16,13 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.zeu.controller.model.BaseButton;
+import org.zeu.controller.model.CircleButton;
+import org.zeu.controller.model.HexagonButton;
 import org.zeu.controller.model.RotationJoystick;
+import org.zeu.controller.model.SquareButton;
+import org.zeu.controller.model.TriangleButton;
 import org.zeu.controller.model.VelocityJoystick;
-import org.zeu.controller.model.json.Input;
+import org.zeu.controller.model.base.BaseExample;
 
 public class ZeuControllerActivity extends BaseExample {
 
@@ -119,23 +122,19 @@ public class ZeuControllerActivity extends BaseExample {
 		Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.9f, 0.9f, 0.9f));
 
-		BaseButton square = new BaseButton(CAMERA_WIDTH - 64, 32, mSquare, net,
-				Input.BUTTON_SQUARE);
+		SquareButton square = new SquareButton(this, net);
 		scene.registerTouchArea(square);
 		scene.attachChild(square);
-		
-		BaseButton triangle = new BaseButton(CAMERA_WIDTH - 64, 96, mTriangle, net,
-				Input.BUTTON_TRIANGLE);
+
+		TriangleButton triangle = new TriangleButton(this, net);
 		scene.registerTouchArea(triangle);
 		scene.attachChild(triangle);
 		
-		BaseButton hexagon = new BaseButton(CAMERA_WIDTH - 128, 32, mHexagon, net,
-				Input.BUTTON_HEXAGON);
+		HexagonButton hexagon = new HexagonButton(this, net);
 		scene.registerTouchArea(hexagon);
 		scene.attachChild(hexagon);
 		
-		BaseButton circle = new BaseButton(CAMERA_WIDTH - 128, 96, mCircle, net,
-				Input.BUTTON_CIRCLE);
+		CircleButton circle = new CircleButton(this, net);
 		scene.registerTouchArea(circle);
 		scene.attachChild(circle);
 
@@ -163,5 +162,21 @@ public class ZeuControllerActivity extends BaseExample {
 
 	public boolean placeJoysticksAtDifferentVerticalLocations() {
 		return mPlaceOnScreenControlsAtDifferentVerticalLocations;
+	}
+
+	public TextureRegion getSquareTexture() {
+		return mSquare;
+	}
+
+	public TextureRegion getTriangleTexture() {
+		return mTriangle;
+	}
+
+	public TextureRegion getCircleTexture() {
+		return mCircle;
+	}
+
+	public TextureRegion getHexagonTexture() {
+		return mHexagon;
 	}
 }

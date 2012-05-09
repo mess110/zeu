@@ -1,4 +1,4 @@
-package org.zeu.controller;
+package org.zeu.controller.model.base;
 
 import org.anddev.andengine.ui.activity.BaseGameActivity;
 
