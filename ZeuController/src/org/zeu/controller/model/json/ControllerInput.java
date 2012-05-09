@@ -1,4 +1,4 @@
-package org.zeu.controller.model;
+package org.zeu.controller.model.json;
 
 import org.json.JSONException;
 import org.json.JSONObject;

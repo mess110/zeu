@@ -1,4 +1,4 @@
-package org.zeu.controller.model;
+package org.zeu.controller.model.json;
 
 public class Input {
 

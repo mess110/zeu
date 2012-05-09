@@ -1,14 +1,8 @@
 package org.zeu.controller;
 
-import io.socket.SocketIO;
-
-import javax.microedition.khronos.opengles.GL10;
-
 import org.anddev.andengine.engine.Engine;
 import org.anddev.andengine.engine.camera.Camera;
 import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
-import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener;
-import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.anddev.andengine.engine.options.EngineOptions;
 import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
@@ -23,16 +17,16 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.zeu.controller.model.Input;
-import org.zeu.controller.model.JoystickMove;
+import org.zeu.controller.model.RotationJoystick;
+import org.zeu.controller.model.VelocityJoystick;
 
 import android.widget.Toast;
 
 public class ZeuControllerActivity extends BaseExample {
 
-	private static final int CAMERA_WIDTH = 480;
-	private static final int CAMERA_HEIGHT = 320;
-	private static final int PADDING = 32;
+	public final int CAMERA_WIDTH = 480;
+	public final int CAMERA_HEIGHT = 320;
+	public final int PADDING = 32;
 
 	private Camera mCamera;
 
@@ -44,8 +38,6 @@ public class ZeuControllerActivity extends BaseExample {
 	private TextureRegion mOnScreenControlKnobTextureRegion;
 
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
-
-	private SocketIO socket;
 	private Network net;
 
 	public void toast(String text) {
@@ -80,6 +72,13 @@ public class ZeuControllerActivity extends BaseExample {
 		net.connect();
 
 		return engine;
+	}
+	
+	public TextureRegion getJoystickBaseTexture() {
+		return mOnScreenControlBaseTextureRegion;
+	}
+	public TextureRegion getJoystickKnobTexture() {
+		return mOnScreenControlKnobTextureRegion;
 	}
 
 	@Override
@@ -126,75 +125,25 @@ public class ZeuControllerActivity extends BaseExample {
 		Sprite circle = new Sprite(CAMERA_WIDTH - 128, 96, mCircle);
 		scene.attachChild(circle);
 
-		final AnalogOnScreenControl velocityOnScreenControl = getVelocityJoystick();
-		scene.setChildScene(velocityOnScreenControl);
-		
-		final AnalogOnScreenControl rotationOnScreenControl = getRotationJoystick();
-		velocityOnScreenControl.setChildScene(rotationOnScreenControl);
+		AnalogOnScreenControl velocityJoystick = new VelocityJoystick(this, net).getVelocityJoystick();
+		scene.setChildScene(velocityJoystick);
+
+		AnalogOnScreenControl rotationOnScreenControl = new RotationJoystick(this, net).getRotationJoystick();
+		velocityJoystick.setChildScene(rotationOnScreenControl);
 
 		return scene;
-	}
-	
-	private AnalogOnScreenControl getRotationJoystick() {
-		final int y1 = CAMERA_HEIGHT
-				- this.mOnScreenControlBaseTextureRegion.getHeight() - PADDING;
-		final int y2 = (this.mPlaceOnScreenControlsAtDifferentVerticalLocations) ? PADDING
-				: y1;
-		final int x2 = CAMERA_WIDTH
-				- mOnScreenControlBaseTextureRegion.getWidth() - PADDING;
-		final AnalogOnScreenControl rotationOnScreenControl = new AnalogOnScreenControl(
-				x2, y2, mCamera, mOnScreenControlBaseTextureRegion,
-				mOnScreenControlKnobTextureRegion, 0.1f,
-				new IAnalogOnScreenControlListener() {
-					@Override
-					public void onControlChange(
-							final BaseOnScreenControl pBaseOnScreenControl,
-							final float pValueX, final float pValueY) {
-						net.rotate(pValueX, pValueY);
-					}
-
-					@Override
-					public void onControlClick(
-							final AnalogOnScreenControl pAnalogOnScreenControl) {
-						/* Nothing. */
-					}
-				});
-		rotationOnScreenControl.getControlBase().setBlendFunction(
-				GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		rotationOnScreenControl.getControlBase().setAlpha(0.5f);
-		return rotationOnScreenControl;
-	}
-
-	private AnalogOnScreenControl getVelocityJoystick() {
-		final int x1 = PADDING;
-		final int y1 = CAMERA_HEIGHT
-				- this.mOnScreenControlBaseTextureRegion.getHeight() - PADDING;
-
-		AnalogOnScreenControl velocityOnScreenControl = new AnalogOnScreenControl(
-				x1, y1, mCamera, mOnScreenControlBaseTextureRegion,
-				mOnScreenControlKnobTextureRegion, 0.1f,
-				new IAnalogOnScreenControlListener() {
-					@Override
-					public void onControlChange(
-							final BaseOnScreenControl pBaseOnScreenControl,
-							final float pValueX, final float pValueY) {
-						net.move(pValueX, pValueY);
-					}
-
-					@Override
-					public void onControlClick(
-							final AnalogOnScreenControl pAnalogOnScreenControl) {
-						/* Nothing. */
-					}
-				});
-		velocityOnScreenControl.getControlBase().setBlendFunction(
-				GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		velocityOnScreenControl.getControlBase().setAlpha(0.5f);
-		return velocityOnScreenControl;
 	}
 
 	@Override
 	public void onLoadComplete() {
 
+	}
+
+	public Camera getCamera() {
+		return mCamera;
+	}
+
+	public boolean placeJoysticksAtDifferentVerticalLocations() {
+		return mPlaceOnScreenControlsAtDifferentVerticalLocations;
 	}
 }

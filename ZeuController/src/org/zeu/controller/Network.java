@@ -8,8 +8,8 @@ import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
 import org.json.JSONObject;
-import org.zeu.controller.model.Input;
-import org.zeu.controller.model.JoystickMove;
+import org.zeu.controller.model.json.Input;
+import org.zeu.controller.model.json.JoystickMove;
 
 import android.util.Log;
 
