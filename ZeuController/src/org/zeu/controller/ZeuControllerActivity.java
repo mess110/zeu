@@ -42,7 +42,7 @@ public class ZeuControllerActivity extends BaseExample {
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
 
 	private Network net;
-	private Preferences preferences;
+	private Persistency preferences;
 
 	@Override
 	public Engine onLoadEngine() {
@@ -75,7 +75,7 @@ public class ZeuControllerActivity extends BaseExample {
 					this,
 					"Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 		}
-		preferences = new Preferences(getApplicationContext());
+		preferences = new Persistency(getApplicationContext());
 		net = new Network();
 		net.connect(preferences.getUrl());
 

@@ -11,7 +11,7 @@ public class SettingsActivity extends Activity {
 
 	private Button save;
 	private EditText url, name;
-	private Preferences pref;
+	private Persistency pref;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -19,7 +19,7 @@ public class SettingsActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
 
-		pref = new Preferences(this);
+		pref = new Persistency(this);
 		save = (Button) findViewById(R.id.go_button);
 
 		url = (EditText) findViewById(R.id.editText1);

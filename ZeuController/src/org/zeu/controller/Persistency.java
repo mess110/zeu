@@ -5,12 +5,15 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 // TODO dry up this code by using constants
-public class Preferences {
+public class Persistency {
 	private SharedPreferences preferences;
 	private static String preferencesString = "org.zeu.pref";
 
-	public Preferences(Context context) {
+	public Persistency(Context context) {
 		preferences = context.getSharedPreferences(preferencesString, 0);
+
+		Settings s = Settings.getInstance();
+		s.username = (String) getUsername();
 	}
 
 	public void setUrl(String url) {
