@@ -1,11 +1,6 @@
 package org.zeu.controller;
 
-import java.net.MalformedURLException;
-
-import io.socket.IOAcknowledge;
-import io.socket.IOCallback;
 import io.socket.SocketIO;
-import io.socket.SocketIOException;
 
 import javax.microedition.khronos.opengles.GL10;
 
@@ -28,14 +23,12 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.json.JSONObject;
 import org.zeu.controller.model.Input;
 import org.zeu.controller.model.JoystickMove;
 
-import android.util.Log;
 import android.widget.Toast;
 
-public class ZeuControllerActivity extends BaseExample implements IOCallback {
+public class ZeuControllerActivity extends BaseExample {
 
 	private static final int CAMERA_WIDTH = 480;
 	private static final int CAMERA_HEIGHT = 320;
@@ -53,6 +46,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
 
 	private SocketIO socket;
+	private Network net;
 
 	public void toast(String text) {
 		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
@@ -82,15 +76,8 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 		} catch (final MultiTouchException e) {
 			toast("Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 		}
-
-		socket = new SocketIO();
-		try {
-			socket.connect("http://192.168.0.109:5000/", this);
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			Log.d("connection", "can't connect");
-			e.printStackTrace();
-		}
+		net = new Network();
+		net.connect();
 
 		return engine;
 	}
@@ -163,9 +150,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 					public void onControlChange(
 							final BaseOnScreenControl pBaseOnScreenControl,
 							final float pValueX, final float pValueY) {
-						// TODO is it a good idea to use JoystickMove object?
-						socket.emit("controller_action", new JoystickMove(
-								Input.JOYSTICK_ROTATION, pValueX, pValueY));
+						net.rotate(pValueX, pValueY);
 					}
 
 					@Override
@@ -193,8 +178,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 					public void onControlChange(
 							final BaseOnScreenControl pBaseOnScreenControl,
 							final float pValueX, final float pValueY) {
-						socket.emit("controller_action", new JoystickMove(
-								Input.JOYSTICK_VELOCITY, pValueX, pValueY));
+						net.move(pValueX, pValueY);
 					}
 
 					@Override
@@ -211,40 +195,6 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 
 	@Override
 	public void onLoadComplete() {
-
-	}
-
-	@Override
-	public void on(String arg0, IOAcknowledge arg1, Object... arg2) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onConnect() {
-	}
-
-	@Override
-	public void onDisconnect() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onError(SocketIOException arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMessage(String arg0, IOAcknowledge arg1) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onMessage(JSONObject arg0, IOAcknowledge arg1) {
-		// TODO Auto-generated method stub
 
 	}
 }
