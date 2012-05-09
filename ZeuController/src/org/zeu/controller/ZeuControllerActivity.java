@@ -40,10 +40,6 @@ public class ZeuControllerActivity extends BaseExample {
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
 	private Network net;
 
-	public void toast(String text) {
-		Toast.makeText(this, text, Toast.LENGTH_LONG).show();
-	}
-
 	@Override
 	public Engine onLoadEngine() {
 		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
@@ -57,16 +53,16 @@ public class ZeuControllerActivity extends BaseExample {
 			if (MultiTouch.isSupported(this)) {
 				engine.setTouchController(new MultiTouchController());
 				if (MultiTouch.isSupportedDistinct(this)) {
-					toast("MultiTouch detected --> Both controls will work properly!!!");
+					Util.toast(this, "MultiTouch detected --> Both controls will work properly!!!");
 				} else {
 					mPlaceOnScreenControlsAtDifferentVerticalLocations = true;
-					toast("MultiTouch detected, but your device has problems distinguishing between fingers.\n\nControls are placed at different vertical locations.");
+					Util.toast(this, "MultiTouch detected, but your device has problems distinguishing between fingers.\n\nControls are placed at different vertical locations.");
 				}
 			} else {
-				toast("Sorry your device does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
+				Util.toast(this, "Sorry your device does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 			}
 		} catch (final MultiTouchException e) {
-			toast("Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
+			Util.toast(this, "Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 		}
 		net = new Network();
 		net.connect();
