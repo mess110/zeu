@@ -8,7 +8,6 @@ import org.anddev.andengine.engine.options.EngineOptions.ScreenOrientation;
 import org.anddev.andengine.engine.options.resolutionpolicy.RatioResolutionPolicy;
 import org.anddev.andengine.entity.scene.Scene;
 import org.anddev.andengine.entity.scene.background.ColorBackground;
-import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.entity.util.FPSLogger;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouch;
 import org.anddev.andengine.extension.input.touch.controller.MultiTouchController;
@@ -17,10 +16,10 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
+import org.zeu.controller.model.Button;
 import org.zeu.controller.model.RotationJoystick;
 import org.zeu.controller.model.VelocityJoystick;
-
-import android.widget.Toast;
+import org.zeu.controller.model.json.Input;
 
 public class ZeuControllerActivity extends BaseExample {
 
@@ -53,26 +52,34 @@ public class ZeuControllerActivity extends BaseExample {
 			if (MultiTouch.isSupported(this)) {
 				engine.setTouchController(new MultiTouchController());
 				if (MultiTouch.isSupportedDistinct(this)) {
-					Util.toast(this, "MultiTouch detected --> Both controls will work properly!!!");
+					Util.toast(this,
+							"MultiTouch detected --> Both controls will work properly!!!");
 				} else {
 					mPlaceOnScreenControlsAtDifferentVerticalLocations = true;
-					Util.toast(this, "MultiTouch detected, but your device has problems distinguishing between fingers.\n\nControls are placed at different vertical locations.");
+					Util.toast(
+							this,
+							"MultiTouch detected, but your device has problems distinguishing between fingers.\n\nControls are placed at different vertical locations.");
 				}
 			} else {
-				Util.toast(this, "Sorry your device does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
+				Util.toast(
+						this,
+						"Sorry your device does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 			}
 		} catch (final MultiTouchException e) {
-			Util.toast(this, "Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
+			Util.toast(
+					this,
+					"Sorry your Android Version does NOT support MultiTouch!\n\n(Falling back to SingleTouch.)\n\nControls are placed at different vertical locations.");
 		}
 		net = new Network();
 		net.connect();
 
 		return engine;
 	}
-	
+
 	public TextureRegion getJoystickBaseTexture() {
 		return mOnScreenControlBaseTextureRegion;
 	}
+
 	public TextureRegion getJoystickKnobTexture() {
 		return mOnScreenControlKnobTextureRegion;
 	}
@@ -112,20 +119,35 @@ public class ZeuControllerActivity extends BaseExample {
 		Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.9f, 0.9f, 0.9f));
 
-		Sprite square = new Sprite(CAMERA_WIDTH - 64, 32, mSquare);
+		Button square = new Button(CAMERA_WIDTH - 64, 32, mSquare, net,
+				Input.BUTTON_SQUARE);
+		scene.registerTouchArea(square);
 		scene.attachChild(square);
-		Sprite triangle = new Sprite(CAMERA_WIDTH - 64, 96, mTriangle);
+		
+		Button triangle = new Button(CAMERA_WIDTH - 64, 96, mTriangle, net,
+				Input.BUTTON_TRIANGLE);
+		scene.registerTouchArea(triangle);
 		scene.attachChild(triangle);
-		Sprite hexagon = new Sprite(CAMERA_WIDTH - 128, 32, mHexagon);
+		
+		Button hexagon = new Button(CAMERA_WIDTH - 128, 32, mHexagon, net,
+				Input.BUTTON_HEXAGON);
+		scene.registerTouchArea(hexagon);
 		scene.attachChild(hexagon);
-		Sprite circle = new Sprite(CAMERA_WIDTH - 128, 96, mCircle);
+		
+		Button circle = new Button(CAMERA_WIDTH - 128, 96, mCircle, net,
+				Input.BUTTON_CIRCLE);
+		scene.registerTouchArea(circle);
 		scene.attachChild(circle);
 
-		AnalogOnScreenControl velocityJoystick = new VelocityJoystick(this, net).getVelocityJoystick();
+		AnalogOnScreenControl velocityJoystick = new VelocityJoystick(this, net)
+				.getVelocityJoystick();
 		scene.setChildScene(velocityJoystick);
 
-		AnalogOnScreenControl rotationOnScreenControl = new RotationJoystick(this, net).getRotationJoystick();
+		AnalogOnScreenControl rotationOnScreenControl = new RotationJoystick(
+				this, net).getRotationJoystick();
 		velocityJoystick.setChildScene(rotationOnScreenControl);
+		
+		
 
 		return scene;
 	}

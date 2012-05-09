@@ -8,6 +8,7 @@ import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
 import org.json.JSONObject;
+import org.zeu.controller.model.json.ButtonPress;
 import org.zeu.controller.model.json.Input;
 import org.zeu.controller.model.json.JoystickMove;
 
@@ -45,6 +46,10 @@ public class Network implements IOCallback {
 				Input.JOYSTICK_ROTATION, x, y));
 	}
 
+	public void press(int kind) {
+		socket.emit("controller_action", new ButtonPress(kind));
+	}
+
 	@Override
 	public void on(String arg0, IOAcknowledge arg1, Object... arg2) {
 		// TODO Auto-generated method stub
@@ -80,5 +85,4 @@ public class Network implements IOCallback {
 		// TODO Auto-generated method stub
 		
 	}
-
 }
