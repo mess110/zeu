@@ -28,7 +28,6 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.json.JSONException;
 import org.json.JSONObject;
 import org.zeu.controller.model.Input;
 import org.zeu.controller.model.JoystickMove;
@@ -40,6 +39,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 
 	private static final int CAMERA_WIDTH = 480;
 	private static final int CAMERA_HEIGHT = 320;
+	private static final int PADDING = 32;
 
 	private Camera mCamera;
 
@@ -85,7 +85,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 
 		socket = new SocketIO();
 		try {
-			socket.connect("http://192.168.1.100:5000/", this);
+			socket.connect("http://192.168.0.109:5000/", this);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			Log.d("connection", "can't connect");
@@ -139,37 +139,22 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 		Sprite circle = new Sprite(CAMERA_WIDTH - 128, 96, mCircle);
 		scene.attachChild(circle);
 
-		final int x1 = 0;
-		final int y1 = CAMERA_HEIGHT
-				- this.mOnScreenControlBaseTextureRegion.getHeight();
-		final AnalogOnScreenControl velocityOnScreenControl = new AnalogOnScreenControl(
-				x1, y1, mCamera, mOnScreenControlBaseTextureRegion,
-				mOnScreenControlKnobTextureRegion, 0.1f,
-				new IAnalogOnScreenControlListener() {
-					@Override
-					public void onControlChange(
-							final BaseOnScreenControl pBaseOnScreenControl,
-							final float pValueX, final float pValueY) {
-						socket.emit("controller_action", new JoystickMove(
-								Input.JOYSTICK_LEFT, pValueX, pValueY));
-					}
-
-					@Override
-					public void onControlClick(
-							final AnalogOnScreenControl pAnalogOnScreenControl) {
-						/* Nothing. */
-					}
-				});
-		velocityOnScreenControl.getControlBase().setBlendFunction(
-				GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-		velocityOnScreenControl.getControlBase().setAlpha(0.5f);
-
+		final AnalogOnScreenControl velocityOnScreenControl = getVelocityJoystick();
 		scene.setChildScene(velocityOnScreenControl);
+		
+		final AnalogOnScreenControl rotationOnScreenControl = getRotationJoystick();
+		velocityOnScreenControl.setChildScene(rotationOnScreenControl);
 
-		final int y2 = (this.mPlaceOnScreenControlsAtDifferentVerticalLocations) ? 0
+		return scene;
+	}
+	
+	private AnalogOnScreenControl getRotationJoystick() {
+		final int y1 = CAMERA_HEIGHT
+				- this.mOnScreenControlBaseTextureRegion.getHeight() - PADDING;
+		final int y2 = (this.mPlaceOnScreenControlsAtDifferentVerticalLocations) ? PADDING
 				: y1;
 		final int x2 = CAMERA_WIDTH
-				- mOnScreenControlBaseTextureRegion.getWidth();
+				- mOnScreenControlBaseTextureRegion.getWidth() - PADDING;
 		final AnalogOnScreenControl rotationOnScreenControl = new AnalogOnScreenControl(
 				x2, y2, mCamera, mOnScreenControlBaseTextureRegion,
 				mOnScreenControlKnobTextureRegion, 0.1f,
@@ -192,10 +177,36 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 		rotationOnScreenControl.getControlBase().setBlendFunction(
 				GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		rotationOnScreenControl.getControlBase().setAlpha(0.5f);
+		return rotationOnScreenControl;
+	}
 
-		velocityOnScreenControl.setChildScene(rotationOnScreenControl);
+	private AnalogOnScreenControl getVelocityJoystick() {
+		final int x1 = PADDING;
+		final int y1 = CAMERA_HEIGHT
+				- this.mOnScreenControlBaseTextureRegion.getHeight() - PADDING;
 
-		return scene;
+		AnalogOnScreenControl velocityOnScreenControl = new AnalogOnScreenControl(
+				x1, y1, mCamera, mOnScreenControlBaseTextureRegion,
+				mOnScreenControlKnobTextureRegion, 0.1f,
+				new IAnalogOnScreenControlListener() {
+					@Override
+					public void onControlChange(
+							final BaseOnScreenControl pBaseOnScreenControl,
+							final float pValueX, final float pValueY) {
+						socket.emit("controller_action", new JoystickMove(
+								Input.JOYSTICK_LEFT, pValueX, pValueY));
+					}
+
+					@Override
+					public void onControlClick(
+							final AnalogOnScreenControl pAnalogOnScreenControl) {
+						/* Nothing. */
+					}
+				});
+		velocityOnScreenControl.getControlBase().setBlendFunction(
+				GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		velocityOnScreenControl.getControlBase().setAlpha(0.5f);
+		return velocityOnScreenControl;
 	}
 
 	@Override
