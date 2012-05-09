@@ -1,7 +1,9 @@
 package org.zeu.controller.model.base;
 
 import org.anddev.andengine.ui.activity.BaseGameActivity;
+import org.zeu.controller.SettingsActivity;
 
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -24,8 +26,8 @@ public abstract class BaseExample extends BaseGameActivity {
 			this.finish();
 			break;
 		case ID_MENU_SETTINGS:
-			//Intent myIntent = new Intent(this, SettingsActivity.class);
-			//startActivity(myIntent);
+			Intent myIntent = new Intent(this, SettingsActivity.class);
+			startActivity(myIntent);
 			break;
 		default:
 			break;
