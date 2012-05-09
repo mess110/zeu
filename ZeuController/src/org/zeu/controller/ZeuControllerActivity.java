@@ -16,7 +16,7 @@ import org.anddev.andengine.opengl.texture.TextureOptions;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.zeu.controller.model.Button;
+import org.zeu.controller.model.BaseButton;
 import org.zeu.controller.model.RotationJoystick;
 import org.zeu.controller.model.VelocityJoystick;
 import org.zeu.controller.model.json.Input;
@@ -119,22 +119,22 @@ public class ZeuControllerActivity extends BaseExample {
 		Scene scene = new Scene();
 		scene.setBackground(new ColorBackground(0.9f, 0.9f, 0.9f));
 
-		Button square = new Button(CAMERA_WIDTH - 64, 32, mSquare, net,
+		BaseButton square = new BaseButton(CAMERA_WIDTH - 64, 32, mSquare, net,
 				Input.BUTTON_SQUARE);
 		scene.registerTouchArea(square);
 		scene.attachChild(square);
 		
-		Button triangle = new Button(CAMERA_WIDTH - 64, 96, mTriangle, net,
+		BaseButton triangle = new BaseButton(CAMERA_WIDTH - 64, 96, mTriangle, net,
 				Input.BUTTON_TRIANGLE);
 		scene.registerTouchArea(triangle);
 		scene.attachChild(triangle);
 		
-		Button hexagon = new Button(CAMERA_WIDTH - 128, 32, mHexagon, net,
+		BaseButton hexagon = new BaseButton(CAMERA_WIDTH - 128, 32, mHexagon, net,
 				Input.BUTTON_HEXAGON);
 		scene.registerTouchArea(hexagon);
 		scene.attachChild(hexagon);
 		
-		Button circle = new Button(CAMERA_WIDTH - 128, 96, mCircle, net,
+		BaseButton circle = new BaseButton(CAMERA_WIDTH - 128, 96, mCircle, net,
 				Input.BUTTON_CIRCLE);
 		scene.registerTouchArea(circle);
 		scene.attachChild(circle);
