@@ -14,15 +14,14 @@ app.get('/', function (req, res) {
 });
 
 io.sockets.on('connection', function (socket) {
-  console.log('connncetd');
   socket.on('controller_action', function (data) {
-    console.log(data);
     for (var id in viewports) {
       viewports[id].emit('controller_action', data);
     }
   });
 
   socket.on('viewport_register', function() {
+    console.log('viewport_registerd');
     viewports[socket.id] = socket;
   });
 });
