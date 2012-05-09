@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+// TODO dry up this code by using constants
 public class Preferences {
 	private SharedPreferences preferences;
 	private static String preferencesString = "org.zeu.pref";
@@ -17,8 +18,18 @@ public class Preferences {
 		editor.putString("url", url);
 		editor.commit();
 	}
+	
+	public void setUsername(String username) {
+		Editor editor = preferences.edit();
+		editor.putString("username", username);
+		editor.commit();
+	}
 
 	public String getUrl() {
 		return preferences.getString("url", "http://192.168.0.109:5000");
+	}
+
+	public CharSequence getUsername() {
+		return preferences.getString("username", "Player");
 	}
 }

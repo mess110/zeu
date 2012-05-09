@@ -10,7 +10,7 @@ import android.widget.EditText;
 public class SettingsActivity extends Activity {
 
 	private Button save;
-	private EditText edit;
+	private EditText url, name;
 	private Preferences pref;
 
 	/** Called when the activity is first created. */
@@ -21,12 +21,17 @@ public class SettingsActivity extends Activity {
 
 		pref = new Preferences(this);
 		save = (Button) findViewById(R.id.go_button);
-		edit = (EditText) findViewById(R.id.editText1);
-		edit.setText(pref.getUrl());
+
+		url = (EditText) findViewById(R.id.editText1);
+		url.setText(pref.getUrl());
+
+		name = (EditText) findViewById(R.id.editText2);
+		name.setText(pref.getUsername());
 
 		save.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
-				pref.setUrl(edit.getText().toString());
+				pref.setUrl(name.getText().toString());
+				pref.setUrl(url.getText().toString());
 				Util.toast(getApplicationContext(), "saved");
 			}
 		});
