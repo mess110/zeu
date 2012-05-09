@@ -26,9 +26,9 @@ public class Network implements IOCallback {
 		return socket.isConnected();
 	}
 	
-	public void connect() {
+	public void connect(String url) {
 		try {
-			socket.connect("http://192.168.0.109:5000/", this);
+			socket.connect(url, this);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			Log.d("connection", "can't connect");
