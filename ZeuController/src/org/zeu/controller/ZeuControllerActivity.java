@@ -40,7 +40,7 @@ public class ZeuControllerActivity extends BaseExample {
 	private TextureRegion mOnScreenControlKnobTextureRegion;
 
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
-	
+
 	private Network net;
 	private Preferences preferences;
 
@@ -80,14 +80,6 @@ public class ZeuControllerActivity extends BaseExample {
 		net.connect(preferences.getUrl());
 
 		return engine;
-	}
-
-	public TextureRegion getJoystickBaseTexture() {
-		return mOnScreenControlBaseTextureRegion;
-	}
-
-	public TextureRegion getJoystickKnobTexture() {
-		return mOnScreenControlKnobTextureRegion;
 	}
 
 	@Override
@@ -132,11 +124,11 @@ public class ZeuControllerActivity extends BaseExample {
 		TriangleButton triangle = new TriangleButton(this, net);
 		scene.registerTouchArea(triangle);
 		scene.attachChild(triangle);
-		
+
 		HexagonButton hexagon = new HexagonButton(this, net);
 		scene.registerTouchArea(hexagon);
 		scene.attachChild(hexagon);
-		
+
 		CircleButton circle = new CircleButton(this, net);
 		scene.registerTouchArea(circle);
 		scene.attachChild(circle);
@@ -179,5 +171,13 @@ public class ZeuControllerActivity extends BaseExample {
 
 	public TextureRegion getHexagonTexture() {
 		return mHexagon;
+	}
+
+	public TextureRegion getJoystickBaseTexture() {
+		return mOnScreenControlBaseTextureRegion;
+	}
+
+	public TextureRegion getJoystickKnobTexture() {
+		return mOnScreenControlKnobTextureRegion;
 	}
 }

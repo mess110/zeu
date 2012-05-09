@@ -30,10 +30,13 @@ public class Network implements IOCallback {
 		try {
 			socket.connect(url, this);
 		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
 			Log.d("connection", "can't connect");
 			e.printStackTrace();
 		}
+	}
+	
+	public void disconnect() {
+		socket.disconnect();
 	}
 	
 	public void move(float x, float y) {
