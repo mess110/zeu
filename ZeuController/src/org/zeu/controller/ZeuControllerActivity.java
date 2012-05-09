@@ -165,7 +165,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 							final float pValueX, final float pValueY) {
 						// TODO is it a good idea to use JoystickMove object?
 						socket.emit("controller_action", new JoystickMove(
-								Input.JOYSTICK_RIGHT, pValueX, pValueY));
+								Input.JOYSTICK_ROTATION, pValueX, pValueY));
 					}
 
 					@Override
@@ -194,7 +194,7 @@ public class ZeuControllerActivity extends BaseExample implements IOCallback {
 							final BaseOnScreenControl pBaseOnScreenControl,
 							final float pValueX, final float pValueY) {
 						socket.emit("controller_action", new JoystickMove(
-								Input.JOYSTICK_LEFT, pValueX, pValueY));
+								Input.JOYSTICK_VELOCITY, pValueX, pValueY));
 					}
 
 					@Override
