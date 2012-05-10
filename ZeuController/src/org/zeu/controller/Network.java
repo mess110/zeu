@@ -15,17 +15,17 @@ import org.zeu.controller.model.json.JoystickMove;
 import android.util.Log;
 
 public class Network implements IOCallback {
-	
+
 	private SocketIO socket;
 
 	public Network() {
 		socket = new SocketIO();
 	}
-	
+
 	public boolean isConnected() {
 		return socket.isConnected();
 	}
-	
+
 	public void connect(String url) {
 		try {
 			socket.connect(url, this);
@@ -34,17 +34,27 @@ public class Network implements IOCallback {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void disconnect() {
 		socket.disconnect();
 	}
-	
+
+	public void reconnect() {
+		socket.reconnect();
+	}
+
 	public void move(float x, float y) {
+		if (x == 0 && y == 0) {
+			return;
+		}
 		socket.emit("controller_action", new JoystickMove(
 				Input.JOYSTICK_VELOCITY, x, y));
 	}
-	
+
 	public void rotate(float x, float y) {
+		if (x == 0 && y == 0) {
+			return;
+		}
 		socket.emit("controller_action", new JoystickMove(
 				Input.JOYSTICK_ROTATION, x, y));
 	}
@@ -56,36 +66,36 @@ public class Network implements IOCallback {
 	@Override
 	public void on(String arg0, IOAcknowledge arg1, Object... arg2) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onConnect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onDisconnect() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onError(SocketIOException arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onMessage(String arg0, IOAcknowledge arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onMessage(JSONObject arg0, IOAcknowledge arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

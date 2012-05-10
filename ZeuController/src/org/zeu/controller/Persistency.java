@@ -14,6 +14,7 @@ public class Persistency {
 
 		Settings s = Settings.getInstance();
 		s.username = (String) getUsername();
+		s.url = getUrl();
 	}
 
 	public void setUrl(String url) {

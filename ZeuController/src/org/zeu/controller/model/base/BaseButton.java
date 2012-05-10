@@ -7,10 +7,11 @@ import org.zeu.controller.Network;
 
 public class BaseButton extends Sprite {
 
-	private Network net;
+	protected Network net;
 	private int kind;
 
-	public BaseButton(float pX, float pY, TextureRegion pTextureRegion, Network net, int kind) {
+	public BaseButton(float pX, float pY, TextureRegion pTextureRegion,
+			Network net, int kind) {
 		super(pX, pY, pTextureRegion);
 		this.net = net;
 		this.kind = kind;
@@ -18,7 +19,9 @@ public class BaseButton extends Sprite {
 
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
 			final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
-		net.press(kind);
+		if (pSceneTouchEvent.isActionUp()) {
+			net.press(kind);
+		}
 		return true;
 	}
 

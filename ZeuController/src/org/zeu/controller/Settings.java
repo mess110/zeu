@@ -5,6 +5,7 @@ public class Settings {
 	private static Settings instance;
 	
 	public String username;
+	public String url;
 	
 	private Settings() {
 	}
