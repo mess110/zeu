@@ -14,6 +14,12 @@ countHash = function(hash) {
   return count;
 }
 
+dc = function(hash, socket) {
+  if (hash.hasOwnProperty(socket.id)) {
+    delete hash[socket.id];
+  }
+}
+
 app.listen(5000);
 
 app.get('/', function (req, res) {
@@ -28,12 +34,8 @@ app.get('/', function (req, res) {
 
 io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function (data) {
-    if (viewports.hasOwnProperty(socket.id)) {
-      delete viewports[socket.id];
-    }
-    if (controllers.hasOwnProperty(socket.id)) {
-      delete controllers[socket.id];
-    }
+    dc(viewports, socket);
+    dc(controllers, socket);
   });
 
   socket.on('controller_action', function (data) {
