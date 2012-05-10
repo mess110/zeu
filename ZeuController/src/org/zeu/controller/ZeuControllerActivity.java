@@ -106,7 +106,7 @@ public class ZeuControllerActivity extends BaseExample {
 		mEngine.registerUpdateHandler(new FPSLogger());
 
 		Scene scene = new Scene();
-		scene.setBackground(new ColorBackground(0.9f, 0.9f, 0.9f));
+		scene.setBackground(new ColorBackground(0.0f, 0.0f, 0.0f));
 
 		SquareButton square = new SquareButton(this, net);
 		scene.registerTouchArea(square);

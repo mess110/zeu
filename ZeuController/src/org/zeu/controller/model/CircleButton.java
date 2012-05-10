@@ -12,7 +12,7 @@ public class CircleButton extends BaseButton {
 	private ZeuControllerActivity zeu;
 
 	public CircleButton(ZeuControllerActivity zeu, Network net) {
-		super(32, 32, zeu.getCircleTexture(), net, Input.BUTTON_CIRCLE);
+		super(32, 32, zeu.getJoystickKnobTexture(), net, Input.BUTTON_CIRCLE);
 		this.zeu = zeu;
 	}
 

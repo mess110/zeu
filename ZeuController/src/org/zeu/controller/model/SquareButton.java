@@ -8,7 +8,8 @@ import org.zeu.controller.model.json.Input;
 public class SquareButton extends BaseButton {
 
 	public SquareButton(ZeuControllerActivity zeu, Network net) {
-		super(zeu.CAMERA_WIDTH -64, 32, zeu.getSquareTexture(), net, Input.BUTTON_SQUARE);
+		super(zeu.CAMERA_WIDTH - 32 - zeu.getJoystickKnobTexture().getWidth()
+				* 2, 32, zeu.getJoystickKnobTexture(), net, Input.BUTTON_SQUARE);
 	}
 
 }

@@ -9,7 +9,8 @@ import org.zeu.controller.model.json.Input;
 public class TriangleButton extends BaseButton {
 
 	public TriangleButton(ZeuControllerActivity zeu, Network net) {
-		super(96, 32, zeu.getTriangleTexture(), net, Input.BUTTON_TRIANGLE);
+		super(32 + zeu.getJoystickKnobTexture().getWidth(), 32, zeu
+				.getJoystickKnobTexture(), net, Input.BUTTON_TRIANGLE);
 	}
 
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
