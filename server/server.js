@@ -1,31 +1,15 @@
 var app = require('express').createServer()
-  , io = require('socket.io').listen(app);
+  , io = require('socket.io').listen(app)
+  , helpers = require('./helpers');
 
 var viewports = {}
 var controllers = {}
-
-// TODO find a better way
-// viewports.length doesn't work
-countHash = function(hash) {
-  count = 0;
-  for (var id in hash) {
-    count++;
-  }
-  return count;
-}
-
-dc = function(hash, socket) {
-  if (hash.hasOwnProperty(socket.id)) {
-    delete hash[socket.id];
-  }
-}
-
-app.listen(5000);
 
 app.get('/', function (req, res) {
   res.contentType('json');
   status = {
     "name": "zeu",
+    "version": "0.1.0",
     "viewports": countHash(viewports),
     "controllers": countHash(controllers)
   };
@@ -52,3 +36,5 @@ io.sockets.on('connection', function (socket) {
     controllers[socket.id] = socket;
   });
 });
+
+app.listen(5000);
