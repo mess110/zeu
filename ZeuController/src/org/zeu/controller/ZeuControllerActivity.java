@@ -171,4 +171,10 @@ public class ZeuControllerActivity extends BaseExample {
 	public TextureRegion getJoystickKnobTexture() {
 		return mOnScreenControlKnobTextureRegion;
 	}
+	
+	@Override
+    protected void onDestroy() {
+        super.onDestroy();
+        net.disconnect();
+    }
 }

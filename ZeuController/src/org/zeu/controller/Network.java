@@ -33,6 +33,7 @@ public class Network implements IOCallback {
 	public void connect(String url) {
 		try {
 			socket.connect(url, this);
+			socket.emit("controller_register");
 		} catch (MalformedURLException e) {
 			Log.d("connection", "can't connect");
 			e.printStackTrace();

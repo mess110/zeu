@@ -2,12 +2,13 @@ var app = require('express').createServer()
   , io = require('socket.io').listen(app);
 
 var viewports = {}
+var controllers = {}
 
 // TODO find a better way
 // viewports.length doesn't work
-calculateViewports = function() {
+countHash = function(hash) {
   count = 0;
-  for (var id in viewports) {
+  for (var id in hash) {
     count++;
   }
   return count;
@@ -19,7 +20,8 @@ app.get('/', function (req, res) {
   res.contentType('json');
   status = {
     "name": "zeu",
-    "viewports": calculateViewports()
+    "viewports": countHash(viewports),
+    "controllers": countHash(controllers)
   };
   res.send(status);
 });
@@ -28,6 +30,9 @@ io.sockets.on('connection', function (socket) {
   socket.on('disconnect', function (data) {
     if (viewports.hasOwnProperty(socket.id)) {
       delete viewports[socket.id];
+    }
+    if (controllers.hasOwnProperty(socket.id)) {
+      delete controllers[socket.id];
     }
   });
 
@@ -39,5 +44,9 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('viewport_register', function() {
     viewports[socket.id] = socket;
+  });
+
+  socket.on('controller_register', function() {
+    controllers[socket.id] = socket;
   });
 });
