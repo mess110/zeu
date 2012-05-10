@@ -19,6 +19,10 @@ public class Network implements IOCallback {
 	private SocketIO socket;
 
 	public Network() {
+		initSocket();
+	}
+
+	private void initSocket() {
 		socket = new SocketIO();
 	}
 
@@ -40,7 +44,11 @@ public class Network implements IOCallback {
 	}
 
 	public void reconnect() {
-		socket.reconnect();
+		if (isConnected()) {
+			disconnect();
+		}
+		initSocket();
+		connect(Settings.getInstance().url);
 	}
 
 	public void move(float x, float y) {
