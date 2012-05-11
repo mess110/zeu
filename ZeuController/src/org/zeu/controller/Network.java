@@ -8,9 +8,10 @@ import io.socket.SocketIO;
 import io.socket.SocketIOException;
 
 import org.json.JSONObject;
-import org.zeu.controller.model.json.ButtonPress;
+import org.zeu.controller.model.json.ButtonRelease;
 import org.zeu.controller.model.json.Input;
 import org.zeu.controller.model.json.JoystickMove;
+import org.zeu.controller.model.json.Register;
 
 import android.util.Log;
 
@@ -33,7 +34,7 @@ public class Network implements IOCallback {
 	public void connect(String url) {
 		try {
 			socket.connect(url, this);
-			socket.emit("controller_register");
+			socket.emit("controller_register", new Register());
 		} catch (MalformedURLException e) {
 			Log.d("connection", "can't connect");
 			e.printStackTrace();
@@ -69,7 +70,7 @@ public class Network implements IOCallback {
 	}
 
 	public void press(int kind) {
-		socket.emit("controller_action", new ButtonPress(kind));
+		socket.emit("controller_action", new ButtonRelease(kind));
 	}
 
 	@Override

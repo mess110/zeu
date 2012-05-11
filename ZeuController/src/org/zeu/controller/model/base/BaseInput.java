@@ -1,12 +1,12 @@
-package org.zeu.controller.model.json;
+package org.zeu.controller.model.base;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zeu.controller.Settings;
 
-public class ControllerInput extends JSONObject {
+public class BaseInput extends JSONObject {
 
-	public ControllerInput() {
+	public BaseInput() {
 		super();
 		try {
 			put("game_id", Settings.getInstance().gameId);

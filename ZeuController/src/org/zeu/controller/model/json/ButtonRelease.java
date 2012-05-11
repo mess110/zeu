@@ -1,13 +1,14 @@
 package org.zeu.controller.model.json;
 
 import org.json.JSONException;
+import org.zeu.controller.model.base.BaseInput;
 
-public class ButtonPress extends ControllerInput {
+public class ButtonRelease extends BaseInput {
 
-	public ButtonPress(int button) {
+	public ButtonRelease(int button) {
 		super();
 		try {
-			put("button", button);
+			put("button_release", button);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

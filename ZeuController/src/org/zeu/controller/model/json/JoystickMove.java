@@ -1,8 +1,9 @@
 package org.zeu.controller.model.json;
 
 import org.json.JSONException;
+import org.zeu.controller.model.base.BaseInput;
 
-public class JoystickMove extends ControllerInput {
+public class JoystickMove extends BaseInput {
 
 	public JoystickMove(int input, float x, float y) {
 		super();
