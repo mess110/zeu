@@ -31,6 +31,10 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('controller_action', function (data) {
+    if (!controllers.hasOwnProperty(socket.id)) {
+      return;
+    }
+
     for (var id in viewports) {
       viewportGameId = viewports[id]['game_id'];
       if (viewportGameId == data['game_id']) {
