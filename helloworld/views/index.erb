@@ -25,10 +25,9 @@
     ctx.fillRect (coolX, coolY, 10, 10);
   }
 
-  socket.emit('viewport_register');
+  socket.emit('viewport_register', {'game_id': '123'});
   socket.on('controller_action', function (data) {
     clear();
     drawSquare(data['x'], data['y']);
-    //socket.emit('my other event', { my: 'data' });
   });
 </script>
