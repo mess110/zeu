@@ -11,5 +11,7 @@ countHash = function(hash) {
 dc = function(hash, socket) {
   if (hash.hasOwnProperty(socket.id)) {
     delete hash[socket.id];
+  } else {
+    console.log('can not disconnect ' + socket.id);
   }
 }
