@@ -2,7 +2,7 @@ package org.zeu.controller.model.json;
 
 import org.json.JSONException;
 
-public class ButtonPress extends ControllerInput{
+public class ButtonPress extends ControllerInput {
 
 	public ButtonPress(int button) {
 		super();

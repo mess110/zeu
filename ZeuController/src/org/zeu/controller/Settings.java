@@ -6,6 +6,7 @@ public class Settings {
 	
 	public String username;
 	public String url;
+	public String gameId;
 	
 	private Settings() {
 	}
