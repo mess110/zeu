@@ -5,10 +5,12 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </a>
-    <a class="brand" href="<%= root_path %>">fart-together</a>
+    <a class="brand" href="<%= root_path %>">games</a>
     <div class="nav-collapse">
       <ul class="nav">
         <%= menu_item "Home", root_path %>
+        <%= menu_item "Status", server_status_path %>
+        <%= menu_item "Controller", game_controller_path %>
       </ul>
     </div>
   </div>

@@ -2,6 +2,9 @@ Games::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
   get "web" => "web#index"
+  get "game_controller" => "web#game_controller"
+  get "server_status" => "web#server_status"
+  get "server_info" => "web#server_info"
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

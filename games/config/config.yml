@@ -1,0 +1,8 @@
+development:
+  realtime_host: 'localhost:5000'
+
+test:
+  realtime_host: 'localhost:5000'
+
+production:
+  realtime_host: 'localhost:5000'

@@ -9,7 +9,7 @@ var games = {}
 app.get('/info', function (req, res) {
   res.contentType('json');
   status = {
-    "name": "zeu",
+    "ok": true,
     "version": "0.1.0",
     "viewports": countHash(viewports),
     "controllers": countHash(controllers),
@@ -63,6 +63,7 @@ io.sockets.on('connection', function (socket) {
     }
 
     controllers[socket.id] = socket;
+    games[game_id]['players'].push(data);
   });
 });
 
