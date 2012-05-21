@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+		<title>minecraft</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<style>
+		    body {
+			    color: #000;
+			    font-family:Monospace;
+			    font-size:13px;
+			    text-align:center;
+			    font-weight: bold;
+
+			    background-color: #fff;
+			    margin: 0px;
+			    overflow: hidden;
+		    }
+
+		    #info {
+			    color:#000;
+			    position: relative;
+			    margin: 0 auto -2.1em;
+			    top: 0px;
+
+			    padding: 5px;
+			    z-index:100;
+		    }
+		</style>
+	</head>
+
+	<body>
+    <%= javascript_include_tag "three.js/Three.js" %>
+    <%= javascript_include_tag "three.js/MD2CharacterComplex.js" %>
+    <%= javascript_include_tag "three.js/Detector.js" %>
+    <%= javascript_include_tag "three.js/Stats.js" %>
+
+    <%= yield %>
+</body></html>
