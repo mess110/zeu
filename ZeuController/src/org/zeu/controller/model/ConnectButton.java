@@ -5,23 +5,21 @@ import org.zeu.controller.ZeuControllerActivity;
 import org.zeu.controller.model.base.BaseButton;
 import org.zeu.controller.model.json.Input;
 import org.zeu.controller.util.Network;
-import org.zeu.controller.util.Util;
 
-public class CircleButton extends BaseButton {
+public class ConnectButton extends BaseButton {
 
-	private ZeuControllerActivity zeu;
-
-	public CircleButton(ZeuControllerActivity zeu, Network net) {
-		super(32, 32, zeu.getJoystickKnobTexture(), net, Input.BUTTON_CIRCLE);
-		this.zeu = zeu;
+	public ConnectButton(ZeuControllerActivity zeu, Network net) {
+		super(zeu.CAMERA_WIDTH / 2 - zeu.getJoystickKnobTexture().getWidth()
+				/ 2, zeu.CAMERA_HEIGHT / 2
+				- zeu.getJoystickKnobTexture().getHeight() / 2, zeu
+				.getConnectBaseTexture(), net, Input.BUTTON_CIRCLE);
 	}
 
 	public boolean onAreaTouched(final TouchEvent pSceneTouchEvent,
 			final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 		if (pSceneTouchEvent.isActionUp()) {
-			Util.isConnected(zeu, net);
+			net.reconnect();
 		}
 		return true;
 	}
-
 }

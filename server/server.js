@@ -18,10 +18,13 @@ app.get('/info', function (req, res) {
   res.send(status);
 });
 
-app.get('/game/:id', function (req, res) {
-  games[req.params.id] = {};
+app.get('/new_game/:id', function (req, res) {
+  games[req.params.id] = {
+    'name': 'game1',
+    'type': 'squares'
+  };
   res.contentType('json');
-  res.send(req.params.id);
+  res.send(games[req.params.id]);
 });
 
 io.sockets.on('connection', function (socket) {
@@ -63,7 +66,6 @@ io.sockets.on('connection', function (socket) {
     }
 
     controllers[socket.id] = socket;
-    games[game_id]['players'].push(data);
   });
 });
 

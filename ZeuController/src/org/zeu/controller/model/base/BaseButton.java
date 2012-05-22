@@ -3,7 +3,7 @@ package org.zeu.controller.model.base;
 import org.anddev.andengine.entity.sprite.Sprite;
 import org.anddev.andengine.input.touch.TouchEvent;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
-import org.zeu.controller.Network;
+import org.zeu.controller.util.Network;
 
 public class BaseButton extends Sprite {
 

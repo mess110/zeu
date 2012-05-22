@@ -1,9 +1,9 @@
 package org.zeu.controller.model;
 
-import org.zeu.controller.Network;
 import org.zeu.controller.ZeuControllerActivity;
 import org.zeu.controller.model.base.BaseButton;
 import org.zeu.controller.model.json.Input;
+import org.zeu.controller.util.Network;
 
 public class HexagonButton extends BaseButton {
 

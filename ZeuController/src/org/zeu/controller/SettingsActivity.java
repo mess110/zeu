@@ -1,16 +1,21 @@
 package org.zeu.controller;
 
+import org.zeu.controller.util.Persistency;
+import org.zeu.controller.util.Util;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 public class SettingsActivity extends Activity {
 
 	private Button save;
 	private EditText url, name, gameId;
+	private CheckBox showOnStartup;
 	private Persistency pref;
 
 	/** Called when the activity is first created. */
@@ -31,11 +36,15 @@ public class SettingsActivity extends Activity {
 		gameId = (EditText) findViewById(R.id.editText3);
 		gameId.setText(pref.getGameId());
 
+		showOnStartup = (CheckBox) findViewById(R.id.checkBox1);
+		showOnStartup.setChecked(pref.isShowSettingsAtStartup());
+
 		save.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				pref.setUsername(name.getText().toString());
 				pref.setUrl(url.getText().toString());
 				pref.setGameId(gameId.getText().toString());
+				pref.setSettingsAtStartup(showOnStartup.isChecked());
 				Util.toast(getApplicationContext(), "saved");
 			}
 		});

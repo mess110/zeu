@@ -5,8 +5,8 @@ import javax.microedition.khronos.opengles.GL10;
 import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl;
 import org.anddev.andengine.engine.camera.hud.controls.BaseOnScreenControl;
 import org.anddev.andengine.engine.camera.hud.controls.AnalogOnScreenControl.IAnalogOnScreenControlListener;
-import org.zeu.controller.Network;
 import org.zeu.controller.ZeuControllerActivity;
+import org.zeu.controller.util.Network;
 
 public class RotationJoystick {
 	private AnalogOnScreenControl rotationOnScreenControl;

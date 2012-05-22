@@ -28,6 +28,12 @@
         android:text="" >
     </EditText>
 
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Show settings at startup" />
+
     <Button
         android:id="@+id/go_button"
         android:layout_width="wrap_content"

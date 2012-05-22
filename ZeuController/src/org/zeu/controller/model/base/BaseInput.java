@@ -2,7 +2,7 @@ package org.zeu.controller.model.base;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.zeu.controller.Settings;
+import org.zeu.controller.util.Settings;
 
 public class BaseInput extends JSONObject {
 

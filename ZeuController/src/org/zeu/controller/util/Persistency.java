@@ -1,4 +1,4 @@
-package org.zeu.controller;
+package org.zeu.controller.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,6 +18,7 @@ public class Persistency {
 		settings.username = getUsername();
 		settings.url = getUrl();
 		settings.gameId = getGameId();
+		settings.showSettingsAtStartup = isShowSettingsAtStartup();
 	}
 
 	public void setUrl(String url) {
@@ -26,19 +27,26 @@ public class Persistency {
 		editor.commit();
 		settings.url = url;
 	}
-	
+
 	public void setUsername(String username) {
 		Editor editor = preferences.edit();
 		editor.putString("username", username);
 		editor.commit();
 		settings.username = username;
 	}
-	
+
 	public void setGameId(String gameId) {
 		Editor editor = preferences.edit();
 		editor.putString("gameId", gameId);
 		editor.commit();
 		settings.gameId = gameId;
+	}
+
+	public void setSettingsAtStartup(boolean showSettingsAtStartup) {
+		Editor editor = preferences.edit();
+		editor.putBoolean("showSettingsAtStartup", showSettingsAtStartup);
+		editor.commit();
+		settings.showSettingsAtStartup = showSettingsAtStartup;
 	}
 
 	public String getUrl() {
@@ -50,6 +58,10 @@ public class Persistency {
 	}
 
 	public String getGameId() {
-		return preferences.getString("gameId", "1");
+		return preferences.getString("gameId", "0");
+	}
+
+	public boolean isShowSettingsAtStartup() {
+		return preferences.getBoolean("showSettingsAtStartup", true);
 	}
 }

@@ -12,6 +12,7 @@ dc = function(hash, socket) {
   if (hash.hasOwnProperty(socket.id)) {
     delete hash[socket.id];
   } else {
-    console.log('can not disconnect ' + socket.id);
+    console.log('can\'t dc ' + socket.id);
+    console.log(hash);
   }
 }

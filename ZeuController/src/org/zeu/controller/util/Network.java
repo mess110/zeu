@@ -1,4 +1,4 @@
-package org.zeu.controller;
+package org.zeu.controller.util;
 
 import java.net.MalformedURLException;
 

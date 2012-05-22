@@ -17,12 +17,19 @@ import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.anddev.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
 import org.anddev.andengine.opengl.texture.region.TextureRegion;
 import org.zeu.controller.model.CircleButton;
+import org.zeu.controller.model.ConnectButton;
 import org.zeu.controller.model.HexagonButton;
 import org.zeu.controller.model.RotationJoystick;
 import org.zeu.controller.model.SquareButton;
 import org.zeu.controller.model.TriangleButton;
 import org.zeu.controller.model.VelocityJoystick;
 import org.zeu.controller.model.base.BaseExample;
+import org.zeu.controller.util.Network;
+import org.zeu.controller.util.Persistency;
+import org.zeu.controller.util.Settings;
+import org.zeu.controller.util.Util;
+
+import android.content.Intent;
 
 public class ZeuControllerActivity extends BaseExample {
 
@@ -33,7 +40,7 @@ public class ZeuControllerActivity extends BaseExample {
 	private Camera mCamera;
 
 	private BitmapTextureAtlas mBitmapTextureAtlas;
-	private TextureRegion mSquare, mHexagon, mTriangle, mCircle;
+	private TextureRegion mSquare, mHexagon, mTriangle, mCircle, mConnect;
 
 	private BitmapTextureAtlas mOnScreenControlTexture;
 	private TextureRegion mOnScreenControlBaseTextureRegion;
@@ -42,10 +49,17 @@ public class ZeuControllerActivity extends BaseExample {
 	private boolean mPlaceOnScreenControlsAtDifferentVerticalLocations = false;
 
 	private Network net;
-	private Persistency preferences;
 
 	@Override
 	public Engine onLoadEngine() {
+		// instantiate preferences so settings are initialized
+		new Persistency(getApplicationContext());
+
+		if (Settings.getInstance().showSettingsAtStartup) {
+			Intent settingsIntent = new Intent(this, SettingsActivity.class);
+			startActivity(settingsIntent);
+		}
+
 		mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
 		RatioResolutionPolicy rrp = new RatioResolutionPolicy(CAMERA_WIDTH,
 				CAMERA_HEIGHT);
@@ -66,9 +80,9 @@ public class ZeuControllerActivity extends BaseExample {
 		} catch (final MultiTouchException e) {
 			Util.toast(this, "Multitouch not supported");
 		}
-		preferences = new Persistency(getApplicationContext());
+
 		net = new Network();
-		net.connect(preferences.getUrl());
+		// net.connect(preferences.getUrl());
 
 		return engine;
 	}
@@ -87,6 +101,8 @@ public class ZeuControllerActivity extends BaseExample {
 				mBitmapTextureAtlas, this, "triangle.png", 64, 0);
 		mCircle = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
 				mBitmapTextureAtlas, this, "circle.png", 64, 64);
+		mConnect = BitmapTextureAtlasTextureRegionFactory.createFromAsset(
+				mBitmapTextureAtlas, this, "lightning.png", 64, 64);
 
 		mOnScreenControlTexture = new BitmapTextureAtlas(256, 128,
 				TextureOptions.BILINEAR_PREMULTIPLYALPHA);
@@ -132,12 +148,16 @@ public class ZeuControllerActivity extends BaseExample {
 				this, net).getRotationJoystick();
 		velocityJoystick.setChildScene(rotationOnScreenControl);
 
+		ConnectButton connect = new ConnectButton(this, net);
+		scene.registerTouchArea(connect);
+		scene.attachChild(connect);
+
 		return scene;
 	}
 
 	@Override
 	public void onLoadComplete() {
-
+		net.connect(Settings.getInstance().url);
 	}
 
 	public Camera getCamera() {
@@ -166,6 +186,10 @@ public class ZeuControllerActivity extends BaseExample {
 
 	public TextureRegion getJoystickBaseTexture() {
 		return mOnScreenControlBaseTextureRegion;
+	}
+
+	public TextureRegion getConnectBaseTexture() {
+		return mConnect;
 	}
 
 	public TextureRegion getJoystickKnobTexture() {
