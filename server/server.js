@@ -53,6 +53,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('viewport_register', function (data) {
     game_id = data['game_id'];
     if (!games.hasOwnProperty(game_id)) {
+      socket.disconnect();
       return;
     }
 
@@ -65,6 +66,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('controller_register', function (data) {
     game_id = data['game_id'];
     if (!games.hasOwnProperty(game_id)) {
+      socket.disconnect();
       return;
     }
 
