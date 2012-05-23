@@ -1,14 +1,10 @@
 class WebController < ApplicationController
   def index
-    server_info = ServerWrapper.info
-    @games = server_info['games']
+    @server_info = ServerWrapper.info
+    @games = @server_info['games'].nil? ? [] : @server_info['games']
   end
 
   def game_controller
-  end
-
-  def server_status
-    @server_info = ServerWrapper.info
   end
 
   def server_info

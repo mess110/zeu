@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 
 public class NewGameActivity extends Activity {
@@ -20,8 +21,9 @@ public class NewGameActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		setContentView(R.layout.new_game);
-		// requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		pref = new Persistency(this);
 
