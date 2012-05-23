@@ -7,6 +7,7 @@ import java.util.Iterator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.zeu.controller.GameFinderActivity;
+import org.zeu.controller.NewGameActivity;
 import org.zeu.controller.SettingsActivity;
 import org.zeu.controller.ZeuControllerActivity;
 
@@ -46,6 +47,17 @@ public class Util {
 		return results;
 	}
 
+	public static String parseGameId(String gameJson) {
+		try {
+			JSONObject jsonObject = new JSONObject(gameJson);
+			return jsonObject.getString("id");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	public static void launchGameFinder(Context context) {
 		Intent settingsIntent = new Intent(context, GameFinderActivity.class);
 		context.startActivity(settingsIntent);
@@ -58,5 +70,11 @@ public class Util {
 
 	public static void log(String string) {
 		Log.d("zeu", string);
+	}
+
+	// TODO better function name
+	public static void launchNewGame(Context context) {
+		Intent newGameIntent = new Intent(context, NewGameActivity.class);
+		context.startActivity(newGameIntent);
 	}
 }

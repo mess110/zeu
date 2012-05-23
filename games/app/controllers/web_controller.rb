@@ -1,5 +1,7 @@
 class WebController < ApplicationController
   def index
+    server_info = ServerWrapper.info
+    @games = server_info['games']
   end
 
   def game_controller

@@ -10,9 +10,11 @@ public abstract class BaseGame extends BaseGameActivity {
 	private final int ID_MENU_EXIT = 0;
 	private final int ID_MENU_SETTINGS = 1;
 	private final int ID_MENU_GAME_FINDER = 2;
+	private final int ID_MENU_NEW_GAME = 3;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(Menu.NONE, ID_MENU_NEW_GAME, Menu.NONE, "new game");
 		menu.add(Menu.NONE, ID_MENU_GAME_FINDER, Menu.NONE, "game finder");
 		menu.add(Menu.NONE, ID_MENU_SETTINGS, Menu.NONE, "settings");
 		menu.add(Menu.NONE, ID_MENU_EXIT, Menu.NONE, "exit");
@@ -31,6 +33,9 @@ public abstract class BaseGame extends BaseGameActivity {
 			break;
 		case ID_MENU_GAME_FINDER:
 			Util.launchGameFinder(this);
+			break;
+		case ID_MENU_NEW_GAME:
+			Util.launchNewGame(this);
 			break;
 		default:
 			break;

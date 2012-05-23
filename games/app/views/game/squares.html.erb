@@ -160,5 +160,13 @@ function render() {
   renderer.render( scene, camera );
 }
 </script>
-<%= javascript_include_tag "socket.io", "zeu" %>
+<%= javascript_include_tag "socket.io" %>
+<script>
+var socket = io.connect('http://localhost:5000');
+
+socket.emit('viewport_register', {'game_id': <%= params[:id] %>});
+socket.on('controller_action', function (data) {
+  theta += data['x'] * 10;
+});
+</script>
 

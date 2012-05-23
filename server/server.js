@@ -2,9 +2,10 @@ var app = require('express').createServer()
   , io = require('socket.io').listen(app)
   , helpers = require('./helpers');
 
-var viewports = {}
-var controllers = {}
-var games = {}
+var viewports = {};
+var controllers = {};
+var games = {};
+var gameId = 0;
 
 app.get('/info', function (req, res) {
   res.contentType('json');
@@ -18,13 +19,15 @@ app.get('/info', function (req, res) {
   res.send(status);
 });
 
-app.get('/new_game/:id', function (req, res) {
-  games[req.params.id] = {
+app.post('/new_game', function (req, res) {
+  gameId += 1;
+  games[gameId] = {
     'name': 'game1',
-    'type': 'squares'
+    'type': 'squares',
+    'id': gameId
   };
   res.contentType('json');
-  res.send(games[req.params.id]);
+  res.send(games[gameId]);
 });
 
 io.sockets.on('connection', function (socket) {

@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>id</th>
+      <th>title</th>
+      <th>type</th>
+      <th>url</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @games.each_with_index do |game, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= game[0] %></td>
+      <td><%= game[1]['name'] %></td>
+      <td><%= game[1]['type'] %></td>
+      <td><%= link_to "view", game_url(game) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>

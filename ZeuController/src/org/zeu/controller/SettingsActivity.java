@@ -26,6 +26,7 @@ public class SettingsActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
+		//requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		pref = new Persistency(this);
 
