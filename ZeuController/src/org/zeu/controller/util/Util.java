@@ -6,9 +6,13 @@ import java.util.Iterator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.zeu.controller.GameFinderActivity;
+import org.zeu.controller.SettingsActivity;
 import org.zeu.controller.ZeuControllerActivity;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Util {
@@ -40,5 +44,19 @@ public class Util {
 			e.printStackTrace();
 		}
 		return results;
+	}
+
+	public static void launchGameFinder(Context context) {
+		Intent settingsIntent = new Intent(context, GameFinderActivity.class);
+		context.startActivity(settingsIntent);
+	}
+
+	public static void launchSettings(Context context) {
+		Intent settingsIntent = new Intent(context, SettingsActivity.class);
+		context.startActivity(settingsIntent);
+	}
+
+	public static void log(String string) {
+		Log.d("zeu", string);
 	}
 }

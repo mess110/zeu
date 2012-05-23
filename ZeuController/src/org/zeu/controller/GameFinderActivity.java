@@ -17,15 +17,26 @@ import android.widget.TextView;
 
 public class GameFinderActivity extends ListActivity {
 
+	private Persistency persistency;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		final Persistency persistency = new Persistency(getApplicationContext());
+		persistency = new Persistency(getApplicationContext());
+		searchForGames();
+	}
 
+	public void searchForGames() {
 		String gamesJson = HttpClient.getGames();
-		ArrayList<String> games = Util.parseJsonGames(gamesJson);
+		ArrayList<String> games = new ArrayList<String>();
+		if (!gamesJson.equals("")) {
+			games = Util.parseJsonGames(gamesJson);
+		} else {
+			Util.toast(this, "couldn't connect to server");
+		}
+		games.add(0, "refresh");
 
 		setListAdapter(new ArrayAdapter<String>(this, R.layout.game_finder,
 				games));
@@ -36,9 +47,13 @@ public class GameFinderActivity extends ListActivity {
 		lv.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				TextView gameIdTextView = ((TextView) view);
-				persistency.setGameId(gameIdTextView.getText().toString());
-				finish();
+				if (position == 0) {
+					searchForGames();
+				} else {
+					TextView gameIdTextView = ((TextView) view);
+					persistency.setGameId(gameIdTextView.getText().toString());
+					finish();
+				}
 			}
 		});
 	}

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
@@ -16,28 +16,50 @@
         android:id="@+id/editText2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Player Name"
-        android:text="" >
-    </EditText>
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText1"
+        android:ems="10"
+        android:hint="Player Name" />
 
     <EditText
         android:id="@+id/editText3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="game id"
-        android:text="" >
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText2"
+        android:layout_toLeftOf="@+id/game_finder_button"
+        android:ems="10"
+        android:hint="game id" >
+
+        <requestFocus />
     </EditText>
+
+    <Button
+        android:id="@+id/game_finder_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText3"
+        android:layout_alignBottom="@+id/editText3"
+        android:layout_alignParentRight="true"
+        android:text="game finder" />
 
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginRight="53dp"
         android:text="Show settings at startup" />
 
     <Button
-        android:id="@+id/go_button"
+        android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="save" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/checkBox1"
+        android:layout_marginLeft="14dp"
+        android:text="done" />
 
-</LinearLayout>
+</RelativeLayout>
