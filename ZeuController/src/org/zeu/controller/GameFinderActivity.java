@@ -38,6 +38,7 @@ public class GameFinderActivity extends ListActivity {
 					int position, long id) {
 				TextView gameIdTextView = ((TextView) view);
 				persistency.setGameId(gameIdTextView.getText().toString());
+				finish();
 			}
 		});
 	}
