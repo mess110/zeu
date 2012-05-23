@@ -6,6 +6,10 @@ class GameController < ApplicationController
     render :layout => "three"
   end
 
+  def pong
+    render :layout => false
+  end
+
   def ensure_valid_game_id
     server_info = ServerWrapper.info
     if !server_info['games'].keys.include? params[:id]

@@ -6,6 +6,7 @@ Games::Application.routes.draw do
   get "server_info" => "web#server_info"
 
   match "/squares/:id" => "game#squares", :via => :get
+  match "/pong/:id" => "game#pong", :via => :get
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

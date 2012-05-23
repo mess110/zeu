@@ -23,7 +23,7 @@ app.post('/new_game', function (req, res) {
   gameId += 1;
   games[gameId] = {
     'name': 'game1',
-    'type': 'squares',
+    'type': 'pong',
     'id': gameId
   };
   res.contentType('json');
