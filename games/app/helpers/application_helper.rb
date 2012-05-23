@@ -7,4 +7,12 @@ module ApplicationHelper
   def game_url game
     "/" + game[1]['type'] + "/" + game[0]
   end
+
+  def logo server_info
+    if server_info['ok'] == true
+      image_tag 'green.png'
+    else
+      image_tag 'red.png'
+    end
+  end
 end

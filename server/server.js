@@ -38,6 +38,7 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('controller_action', function (data) {
     if (!controllers.hasOwnProperty(socket.id)) {
+      socket.disconnect();
       return;
     }
 
