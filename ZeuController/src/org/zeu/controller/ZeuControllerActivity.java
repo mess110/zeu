@@ -81,7 +81,6 @@ public class ZeuControllerActivity extends BaseGame {
 		}
 
 		net = new Network();
-		// net.connect(preferences.getUrl());
 
 		return engine;
 	}
@@ -188,6 +187,10 @@ public class ZeuControllerActivity extends BaseGame {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		net.disconnect();
+		try {
+			net.disconnect();
+		} catch (NullPointerException e) {
+			Util.log("crap, NullPointerException on net.disconnect()");
+		}
 	}
 }
