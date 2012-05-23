@@ -14,12 +14,15 @@
       </div>
     </canvas>
   </center>
-
+  <%= javascript_include_tag "socket.io" %>
   <%= javascript_include_tag "pong/game", "pong/pong" %>
   <script type="text/javascript">
-  Game.ready(function() {
-    Game.start('game', Pong);
-  });
+  getGameInstance = function() {
+    return Game.start('game', Pong);
+  }
+  var game = getGameInstance();
+  Game.ready(game);
   </script>
-</body> 
+  <%= javascript_include_tag "pong/realtime" %>
+</body>
 </html>
