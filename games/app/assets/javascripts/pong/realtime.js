@@ -9,10 +9,10 @@ ZEU.socket.on('controller_action', function (data) {
       }
       break;
     case 1:
-      if (ZEU.isIddle(data, 1)) {
+      if (ZEU.matchPlayer(data, 1)) {
         movePaddle(data, game.rightPaddle, game);
       }
-      if (data['x'] == 0 && data['y'] == 0) {
+      if (ZEU.isIddle(data, 1)) {
         stopPaddle(game.rightPaddle);
       }
       break;
