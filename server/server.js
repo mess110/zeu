@@ -24,7 +24,9 @@ app.post('/new_game', function (req, res) {
   games[gameId] = {
     'name': 'game1',
     'type': 'pong',
-    'id': gameId
+    'id': gameId,
+    'players': [],
+    'viewports': {}
   };
   res.contentType('json');
   res.send(games[gameId]);
@@ -37,11 +39,18 @@ io.sockets.on('connection', function (socket) {
   });
 
   socket.on('controller_action', function (data) {
+    // if the game doesn't exist, dc the socket
     if (!controllers.hasOwnProperty(socket.id)) {
       socket.disconnect();
       return;
     }
 
+    players = games[data['game_id']]['players'];
+    if (players.indexOf(data['username']) == -1) {
+      players.push(data['username']);
+    }
+
+    // send it to all the viewports
     for (var id in viewports) {
       viewportGameId = viewports[id]['game_id'];
       if (viewportGameId == data['game_id']) {
