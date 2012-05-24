@@ -5,6 +5,6 @@ class ServerWrapper
   def self.info
     return get("/info")
   rescue
-    return { :ok => false }
+    return { :ok => false, 'games' => {} }
   end
 end

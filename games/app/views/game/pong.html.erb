@@ -14,17 +14,13 @@
       </div>
     </canvas>
   </center>
-  <%= javascript_include_tag "socket.io" %>
+  <%= javascript_include_tag "jquery", "socket.io", "zeu.framework" %>
   <%= javascript_include_tag "pong/game", "pong/pong" %>
   <script type="text/javascript">
-  getGameInstance = function() {
-    return Game.start('game', Pong);
-  }
-  var game = getGameInstance();
+  var game = Game.start('game', Pong);
   Game.ready(game);
 
-  var socket = io.connect('<%= APP_CONFIG["realtime_host"] %>');
-  socket.emit('viewport_register', {'game_id': <%= params['id'] %> });
+  ZEU.registerViewport('<%= APP_CONFIG["realtime_host"] %>', <%= params['id'] %>);
   </script>
   <%= javascript_include_tag "pong/realtime" %>
 </body>

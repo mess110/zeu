@@ -1,45 +1,27 @@
-socket.on('controller_action', function (data) {
-  if (data['input'] == 0) {
-    movePaddle(data, game.leftPaddle, game);
-  }
-  if (data['input'] == 1) {
-    movePaddle(data, game.rightPaddle, game);
-  }
-  if (data.hasOwnProperty('button_release')) {
-    if (data['button_release'] == 3) {
-      game.start(1);
-    }
-    if (data['button_release'] == 5) {
-      game.start(2);
-    }
+ZEU.socket.on('controller_action', function (data) {
+  switch(data['input']) {
+    case 0:
+      if (ZEU.matchPlayer(data, 0)) {
+        movePaddle(data, game.leftPaddle, game);
+      }
+      break;
+    case 1:
+      if (ZEU.matchPlayer(data, 1)) {
+        movePaddle(data, game.rightPaddle, game);
+      }
+      break;
+    case 3: game.start(1); break;
+    case 5: game.start(2); break;
   }
 });
 
 movePaddle = function(data, paddle, game) {
-  if (data.hasOwnProperty('input')) {
-    if (data['y'] < 0) {
-      paddle.stopMovingDown()
-      paddle.moveUp();
-    }
-    if (data['y'] >= 0) {
-      paddle.stopMovingUp()
-      paddle.moveDown();
-    }
+  if (data['y'] < 0) {
+    paddle.stopMovingDown()
+    paddle.moveUp();
   }
-  /*if (data.hasOwnProperty('button_release')) {
-    switch(data['button_release']) {
-    case 3:
-      game.start(1);
-      break;
-    case 5:
-      paddle.stopMovingUp()
-      paddle.stopMovingDown()
-      break;  
-    }
-  }*/
+  if (data['y'] >= 0) {
+    paddle.stopMovingUp()
+    paddle.moveDown();
+  }
 }
-
-//$(game).simulate("keyup", { keyCode: 65 });
-///$(game).simulate("keyup", { keyCode: 37 });
-//console.log($("#game").trigger(press));
-//console.log(game);

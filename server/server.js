@@ -26,7 +26,7 @@ app.post('/new_game', function (req, res) {
     'type': 'pong',
     'id': gameId,
     'players': [],
-    'viewports': {}
+    'viewports': []
   };
   res.contentType('json');
   res.send(games[gameId]);
@@ -45,9 +45,12 @@ io.sockets.on('connection', function (socket) {
       return;
     }
 
+    // this is where a player joins the game
+    var joined = false;
     players = games[data['game_id']]['players'];
     if (players.indexOf(data['username']) == -1) {
       players.push(data['username']);
+      joined = true;
     }
 
     // send it to all the viewports
@@ -55,6 +58,10 @@ io.sockets.on('connection', function (socket) {
       viewportGameId = viewports[id]['game_id'];
       if (viewportGameId == data['game_id']) {
         viewportSocket = viewports[id]['socket'];
+        if (joined) {
+          viewportSocket.emit('refresh_player_list', {'game_id': data['game_id']});
+        }
+
         viewportSocket.emit('controller_action', data);
       }
     }

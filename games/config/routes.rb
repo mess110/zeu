@@ -3,7 +3,8 @@ Games::Application.routes.draw do
   # first created -> highest priority.
   get "web" => "web#index"
   get "game_controller" => "web#game_controller"
-  get "server_info" => "web#server_info"
+  get "games" => "api#index"
+  get "games/:id" => "api#show"
 
   match "/squares/:id" => "game#squares", :via => :get
   match "/pong/:id" => "game#pong", :via => :get
