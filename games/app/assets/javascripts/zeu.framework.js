@@ -31,3 +31,7 @@ ZEU.getGameInfo = function() {
     "json"
   );
 }
+
+ZEU.isIddle = function(data, paddle) {
+  return (paddle == data['input'] && data['x'] == 0 && data['y'] == 0);
+}

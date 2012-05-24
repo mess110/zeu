@@ -54,17 +54,17 @@ public class Network implements IOCallback {
 	}
 
 	public void move(float x, float y) {
-		if (x == 0 && y == 0) {
-			return;
-		}
+		//if (x == 0 && y == 0) {
+		//	return;
+		//}
 		socket.emit("controller_action", new JoystickMove(
 				Input.JOYSTICK_VELOCITY, x, y));
 	}
 
 	public void rotate(float x, float y) {
-		if (x == 0 && y == 0) {
-			return;
-		}
+		//if (x == 0 && y == 0) {
+		//	return;
+		//}
 		socket.emit("controller_action", new JoystickMove(
 				Input.JOYSTICK_ROTATION, x, y));
 	}
