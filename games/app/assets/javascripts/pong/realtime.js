@@ -1,6 +1,3 @@
-var socket = io.connect('http://localhost:5000');
-socket.emit('viewport_register', {'game_id': 1});
-
 socket.on('controller_action', function (data) {
   if (data['input'] == 0) {
     movePaddle(data, game.leftPaddle, game);

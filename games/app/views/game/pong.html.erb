@@ -22,6 +22,9 @@
   }
   var game = getGameInstance();
   Game.ready(game);
+
+  var socket = io.connect('<%= APP_CONFIG["realtime_host"] %>');
+  socket.emit('viewport_register', {'game_id': <%= params['id'] %> });
   </script>
   <%= javascript_include_tag "pong/realtime" %>
 </body>
