@@ -1,8 +1,12 @@
 development:
-  realtime_host: 'http://localhost:5000'
+  realtime_host: 'localhost:3003'
+  # js uses this to connect on the client side
+  realtime_host_from_outside: 'onna-onna.st2k.net:3003'
 
 test:
-  realtime_host: 'http://localhost:5000'
+  realtime_host: 'localhost:3003'
+  realtime_host_from_outside: 'onna-onna.st2k.net:3003'
 
 production:
-  realtime_host: 'http://localhost:5000'
+  realtime_host: 'localhost:3003'
+  realtime_host_from_outside: 'onna-onna.st2k.net:3003'

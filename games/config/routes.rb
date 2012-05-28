@@ -5,6 +5,7 @@ Games::Application.routes.draw do
   get "game_controller" => "web#game_controller"
   get "reports/:id" => "web#reports"
 
+  get "ping" => "api#ping"
   post "report" => "api#report"
   get "games" => "api#index"
   get "games/:id" => "api#show"

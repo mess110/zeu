@@ -8,6 +8,7 @@
         android:id="@+id/editText4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/game_finder_button"
         android:hint="Zeu Server Address"
         android:text="" >
     </EditText>
@@ -16,10 +17,10 @@
         android:id="@+id/editText1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Zeu Game Runner Address"
-        android:layout_below="@+id/editText4"
         android:layout_alignParentLeft="true"
+        android:layout_below="@+id/editText4"
         android:ems="10"
+        android:hint="Zeu Game Runner Address"
         android:text="" >
     </EditText>
 
@@ -54,23 +55,34 @@
         android:layout_alignParentRight="true"
         android:text="game finder" />
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editText4"
+        android:layout_alignBottom="@+id/editText4"
+        android:layout_alignLeft="@+id/game_finder_button"
+        android:layout_alignParentRight="true"
+        android:text="ping" />
+
     <CheckBox
         android:id="@+id/checkBox1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="22dp"
-        android:layout_marginRight="53dp"
+        android:layout_below="@+id/game_finder_button"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="14dp"
         android:text="Show settings at startup" />
 
     <Button
         android:id="@+id/done_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBox1"
+        android:layout_alignBottom="@+id/checkBox1"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/checkBox1"
-        android:layout_marginLeft="14dp"
+        android:layout_marginLeft="21dp"
         android:text="done" />
 
 </RelativeLayout>

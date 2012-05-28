@@ -4,7 +4,7 @@ class ApiController < ApplicationController
 
   def index
     render :json => {
-      :realtime_server => APP_CONFIG['realtime_host'],
+      :realtime_server => APP_CONFIG['realtime_host_from_outside'],
       :games => @server_info['games']
     }
   end
@@ -16,5 +16,12 @@ class ApiController < ApplicationController
   def report
     Report.create(:stacktrace => params['stacktrace'])
     render :text => 200
+  end
+
+  def ping
+    render :json => { 
+      :pong  => true,
+      :realtime_server => APP_CONFIG['realtime_host_from_outside']
+    }
   end
 end

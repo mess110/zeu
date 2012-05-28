@@ -19,6 +19,17 @@ import org.zeu.controller.util.Settings;
 
 public class BaseHttpClient {
 
+	public static String ping() {
+		try {
+			String url = Settings.getInstance().serverUrl + "/ping";
+			return executeHttpGet(url);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+
 	public static String newGame() {
 		try {
 			return executeHttpPost(Settings.getInstance().runnerUrl

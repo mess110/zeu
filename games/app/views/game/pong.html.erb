@@ -20,7 +20,7 @@
   var game = Game.start('game', Pong);
   Game.ready(game);
 
-  ZEU.registerViewport('<%= APP_CONFIG["realtime_host"] %>', <%= params['id'] %>);
+  ZEU.registerViewport('<%= APP_CONFIG["realtime_host_from_outside"] %>', <%= params['id'] %>);
   </script>
   <%= javascript_include_tag "pong/realtime" %>
 </body>

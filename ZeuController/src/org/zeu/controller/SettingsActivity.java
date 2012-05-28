@@ -1,6 +1,8 @@
 package org.zeu.controller;
 
+import org.zeu.controller.model.base.BaseHttpClient;
 import org.zeu.controller.util.Persistency;
+import org.zeu.controller.util.Util;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,7 +19,7 @@ import android.widget.EditText;
 
 public class SettingsActivity extends Activity {
 
-	private Button done, gameFinder;
+	private Button done, gameFinder, ping;
 	private EditText runnerUrl, serverUrl, name, gameId;
 	private CheckBox showOnStartup;
 	private Persistency pref;
@@ -34,7 +36,7 @@ public class SettingsActivity extends Activity {
 
 		runnerUrl = (EditText) findViewById(R.id.editText1);
 		runnerUrl.setText(pref.getRunnerUrl());
-		
+
 		serverUrl = (EditText) findViewById(R.id.editText4);
 		serverUrl.setText(pref.getServerUrl());
 
@@ -68,6 +70,15 @@ public class SettingsActivity extends Activity {
 			}
 		});
 
+		ping = (Button) findViewById(R.id.button1);
+		ping.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				ping();
+			}
+		});
+
 		done = (Button) findViewById(R.id.done_button);
 		done.setOnClickListener(new OnClickListener() {
 
@@ -79,7 +90,16 @@ public class SettingsActivity extends Activity {
 		});
 	}
 
-	public void save() {
+	protected void ping() {
+		String pingJson = BaseHttpClient.ping();
+		String runnerHost = Util.parseRunnerHost(pingJson);
+		if (!runnerHost.equals("")) {
+			pref.setRunnerUrl(runnerHost);
+			runnerUrl.setText(runnerHost);
+		}
+	}
+
+	protected void save() {
 		pref.setUsername(name.getText().toString());
 		pref.setServerUrl(serverUrl.getText().toString());
 		pref.setRunnerUrl(runnerUrl.getText().toString());

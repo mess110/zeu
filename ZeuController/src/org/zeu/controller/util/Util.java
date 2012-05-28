@@ -10,6 +10,7 @@ import org.zeu.controller.GameFinderActivity;
 import org.zeu.controller.NewGameActivity;
 import org.zeu.controller.SettingsActivity;
 import org.zeu.controller.ZeuControllerActivity;
+import org.zeu.controller.model.base.BaseHttpClient;
 
 import android.content.Context;
 import android.content.Intent;
@@ -76,5 +77,16 @@ public class Util {
 	public static void launchNewGame(Context context) {
 		Intent newGameIntent = new Intent(context, NewGameActivity.class);
 		context.startActivity(newGameIntent);
+	}
+
+	public static String parseRunnerHost(String pingJson) {
+		try {
+			JSONObject jsonObject = new JSONObject(pingJson);
+			return jsonObject.getString("realtime_server");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 }
