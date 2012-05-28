@@ -23,6 +23,7 @@ import org.zeu.controller.model.SquareButton;
 import org.zeu.controller.model.TriangleButton;
 import org.zeu.controller.model.VelocityJoystick;
 import org.zeu.controller.model.base.BaseGame;
+import org.zeu.controller.util.CustomExceptionHandler;
 import org.zeu.controller.util.Network;
 import org.zeu.controller.util.Persistency;
 import org.zeu.controller.util.Settings;
@@ -51,6 +52,7 @@ public class ZeuControllerActivity extends BaseGame {
 
 	@Override
 	public Engine onLoadEngine() {
+		Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler());
 		// instantiate preferences so settings are initialized
 		new Persistency(getApplicationContext());
 
@@ -149,7 +151,7 @@ public class ZeuControllerActivity extends BaseGame {
 
 	@Override
 	public void onLoadComplete() {
-		net.connect(Settings.getInstance().url);
+		net.connect(Settings.getInstance().runnerUrl);
 	}
 
 	public Camera getCamera() {

@@ -12,4 +12,9 @@ class ApiController < ApplicationController
   def show
     render :json => @server_info['games'][params['id']]
   end
+
+  def report
+    Report.create(:stacktrace => params['stacktrace'])
+    render :text => 200
+  end
 end

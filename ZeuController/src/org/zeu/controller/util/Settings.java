@@ -4,9 +4,10 @@ public class Settings {
 
 	private static Settings instance;
 
-	public String username;
-	public String url;
 	public String gameId;
+	public String username;
+	public String runnerUrl;
+	public String serverUrl;
 	public boolean showSettingsAtStartup;
 
 	private Settings() {

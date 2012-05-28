@@ -2,7 +2,7 @@ package org.zeu.controller;
 
 import java.util.ArrayList;
 
-import org.zeu.controller.model.base.HttpClient;
+import org.zeu.controller.model.base.BaseHttpClient;
 import org.zeu.controller.util.Persistency;
 import org.zeu.controller.util.Util;
 
@@ -31,7 +31,7 @@ public class GameFinderActivity extends ListActivity {
 	}
 
 	public void searchForGames() {
-		String gamesJson = HttpClient.getGames();
+		String gamesJson = BaseHttpClient.getGames();
 		ArrayList<String> games = new ArrayList<String>();
 		if (!gamesJson.equals("")) {
 			games = Util.parseJsonGames(gamesJson);

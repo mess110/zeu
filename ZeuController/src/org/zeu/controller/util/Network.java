@@ -50,7 +50,7 @@ public class Network implements IOCallback {
 			disconnect();
 		}
 		initSocket();
-		connect(Settings.getInstance().url);
+		connect(Settings.getInstance().runnerUrl);
 	}
 
 	public void move(float x, float y) {

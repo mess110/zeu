@@ -3,6 +3,9 @@ Games::Application.routes.draw do
   # first created -> highest priority.
   get "web" => "web#index"
   get "game_controller" => "web#game_controller"
+  get "reports/:id" => "web#reports"
+
+  post "report" => "api#report"
   get "games" => "api#index"
   get "games/:id" => "api#show"
 

@@ -4,18 +4,25 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.zeu.controller.util.Settings;
 
-public class HttpClient {
+public class BaseHttpClient {
 
 	public static String newGame() {
 		try {
-			return executeHttpPost(Settings.getInstance().url + "/new_game");
+			return executeHttpPost(Settings.getInstance().runnerUrl
+					+ "/new_game");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -25,12 +32,26 @@ public class HttpClient {
 
 	public static String getGames() {
 		try {
-			return executeHttpGet(Settings.getInstance().url + "/info");
+			return executeHttpGet(Settings.getInstance().runnerUrl + "/info");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "";
+	}
+
+	public static void sendCrashReport(String stacktrace) {
+		DefaultHttpClient httpClient = new DefaultHttpClient();
+		String url = Settings.getInstance().serverUrl + "/report";
+		HttpPost httpPost = new HttpPost(url);
+		List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+		nvps.add(new BasicNameValuePair("stacktrace", stacktrace));
+		try {
+			httpPost.setEntity(new UrlEncodedFormEntity(nvps, HTTP.UTF_8));
+			httpClient.execute(httpPost);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static String executeHttpPost(String url) throws Exception {

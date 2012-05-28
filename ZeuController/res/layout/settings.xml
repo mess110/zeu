@@ -5,10 +5,21 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/editText4"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="Zeu Server Address"
+        android:text="" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Zeu Game Runner Address"
+        android:layout_below="@+id/editText4"
+        android:layout_alignParentLeft="true"
+        android:ems="10"
         android:text="" >
     </EditText>
 

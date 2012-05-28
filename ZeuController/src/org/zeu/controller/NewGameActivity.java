@@ -1,6 +1,6 @@
 package org.zeu.controller;
 
-import org.zeu.controller.model.base.HttpClient;
+import org.zeu.controller.model.base.BaseHttpClient;
 import org.zeu.controller.util.Persistency;
 import org.zeu.controller.util.Util;
 
@@ -32,7 +32,7 @@ public class NewGameActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				String gameJson = HttpClient.newGame();
+				String gameJson = BaseHttpClient.newGame();
 				String gameId = Util.parseGameId(gameJson);
 				pref.setGameId(gameId);
 				finish();

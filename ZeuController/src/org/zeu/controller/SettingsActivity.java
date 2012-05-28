@@ -18,7 +18,7 @@ import android.widget.EditText;
 public class SettingsActivity extends Activity {
 
 	private Button done, gameFinder;
-	private EditText url, name, gameId;
+	private EditText runnerUrl, serverUrl, name, gameId;
 	private CheckBox showOnStartup;
 	private Persistency pref;
 
@@ -32,8 +32,11 @@ public class SettingsActivity extends Activity {
 
 		pref = new Persistency(this);
 
-		url = (EditText) findViewById(R.id.editText1);
-		url.setText(pref.getUrl());
+		runnerUrl = (EditText) findViewById(R.id.editText1);
+		runnerUrl.setText(pref.getRunnerUrl());
+		
+		serverUrl = (EditText) findViewById(R.id.editText4);
+		serverUrl.setText(pref.getServerUrl());
 
 		name = (EditText) findViewById(R.id.editText2);
 		name.setText(pref.getUsername());
@@ -78,7 +81,8 @@ public class SettingsActivity extends Activity {
 
 	public void save() {
 		pref.setUsername(name.getText().toString());
-		pref.setUrl(url.getText().toString());
+		pref.setServerUrl(serverUrl.getText().toString());
+		pref.setRunnerUrl(runnerUrl.getText().toString());
 		pref.setGameId(gameId.getText().toString());
 	}
 
